@@ -5,7 +5,7 @@ library(dplyr)
 library(parallel)
 library(matrixStats)
 
-#simulation function
+#the ranking model to derive the prediction for different ranking categories 
 run_simulation <- function(nsim, alpha_a, beta_a,
                            alpha_b, beta_b,
                            alpha_ba, beta_ba,
