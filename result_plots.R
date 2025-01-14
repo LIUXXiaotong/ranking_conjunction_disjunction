@@ -102,3 +102,6 @@ for (condition in conditions) {
 #results from condition 5 and 4 are not similar (with opposite directions)
 #results from condition 8 and 1 are not similar (with opposite directions)
 
+########### next step [ ]
+########### inspecting the event set [A, B, A and B] and how they differ? 
+
