@@ -3,6 +3,7 @@
 .RData
 .Ruserdata
 condition1_results_full.csv
+condition1_results_full_firstrun.csv
 condition2_results_full.csv
 condition3_results_full.csv
 condition4_results_full.csv
