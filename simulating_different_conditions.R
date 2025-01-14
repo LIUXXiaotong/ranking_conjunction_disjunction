@@ -3,6 +3,12 @@ rm(list=ls())
 source("simulation_function.R")
 
 # condition 1: a high, b low, condition b|a high
+run_simulation(nsim = 1e4,
+               alpha_a = 20, beta_a = 5,
+               alpha_b = 5, beta_b = 20,
+               alpha_ba = 20, beta_ba = 5,
+               condition_name = "condition1", seed = 1234)
+
 
 # condition 2: a high, b high, condition b|a high
 run_simulation(nsim = 1e4, 
