@@ -2,6 +2,7 @@
 rm(list=ls())
 source("simulation_function.R")
 
+################################################ simulate rankings 
 # condition 1: a high, b low, condition b|a high
 run_simulation(nsim = 1e4,
                alpha_a = 20, beta_a = 5,
@@ -59,4 +60,26 @@ run_simulation(nsim = 1e4,
                alpha_b = 20, beta_b = 5, 
                alpha_ba = 5, beta_ba = 20, 
                condition_name = "condition8", seed = 1234)
+
+
+###################################### simulate event sets 
+nsim = 1e4
+set.seed = 1234
+
+a <- rbeta(nsim, 20, 5)
+b <- rbeta(nsim, 5, 20)
+b_a = rbeta(nsim, 20, 5)
+aandb = a*b_a
+
+event_set_condition8 <- cbind(a, b, aandb) %>% as.matrix()
+
+
+set.seed = 1234
+
+a <- rbeta(nsim, 5, 20)
+b <- rbeta(nsim, 20, 5)
+b_a = rbeta(nsim, 5, 20)
+aandb = a*b_a
+
+event_set_condition2 <- cbind(a, b, aandb) %>% as.matrix()
 
