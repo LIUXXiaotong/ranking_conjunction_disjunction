@@ -1,5 +1,8 @@
+rm(list=ls())
+
 library(ggplot2)
 library(tidyverse)
+library(reshape2)
 
 df_condition1 <- read.csv("condition1_results.csv") #condition 1: a high, b low, condition b|a high
 df_condition2 <- read.csv("condition2_results.csv") #condition 2: a high, b high, condition b|a high
@@ -9,6 +12,7 @@ df_condition5 <- read.csv("condition5_results.csv") #condition 5: a low b low, c
 df_condition6 <- read.csv("condition6_results.csv") #condition 6: a low, b high, condition b|a high
 df_condition7 <- read.csv("condition7_results.csv") #condition 7: a low b low, condition b|a low
 df_condition8 <- read.csv("condition8_results.csv") #condition 8: a low b high, condition b|a low
+
 
 #Question: if the rates at which the conjunction fallacy occurs different across conditions? 
 
@@ -55,14 +59,46 @@ for (cond in conditions) {
   assign(paste0(cond, "_summary"), summary_df)
 }
 
-view(df_condition1_summary)
-view(df_condition2_summary)
-view(df_condition3_summary)
-view(df_condition4_summary)
-view(df_condition5_summary)
-view(df_condition6_summary)
-view(df_condition7_summary)
-view(df_condition8_summary)
+
+#view(df_condition1_summary)
+#view(df_condition2_summary)
+#view(df_condition3_summary)
+#view(df_condition4_summary)
+#view(df_condition5_summary)
+#view(df_condition6_summary)
+#view(df_condition7_summary)
+#view(df_condition8_summary)
 
 
+conditions <- paste0("condition", 1:8)
+
+# Iterate over each condition and generate plots
+for (condition in conditions) {
+  # Create the dataframe dynamically
+  df_name <- paste0("df_", condition, "_summary")
+  df_summary_long <- get(df_name) %>%
+    select(-mean_logical_with_ties) %>%
+    pivot_longer(2:4, names_to = "conjunction_type")
+  
+  # Generate the plot
+  plot <- ggplot(df_summary_long, 
+                 aes(x = sample_size_in_simulaton, y = value, color = conjunction_type)) +
+    geom_line(size = 1) +
+    geom_point(size = 2) +
+    labs(
+      title = paste("Mean rate of conjunction fallacy by Sample Size in Simulation -", condition),
+      x = "Sample Size in Simulation",
+      y = "Mean rate",
+      color = "Conjunction Fallacy Type"
+    ) +
+    theme_minimal()
+  
+  # Save the plot to a PDF with a unique name
+  ggsave(paste0(condition, "_line_Plot.pdf"), plot)
+}
+
+#results from condition 6 and 3 are very similar 
+#results from condition 7 and 2 are rather  similar 
+#results from condition 5 and 4 are not similar (with opposite directions)
+#results from condition 8 and 1 are not similar (with opposite directions)
 
